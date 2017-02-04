@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/addName"
+        android:textAlignment="center"
+        android:hint="Name" />
+
+    <Button
+        android:text="Add Record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/confirmAdd"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <!--<Button android:id="@+id/selectDateButton"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Select Date"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginTop="31dp" />-->
+
+    <!--<TextView android:id="@+id/selectedDate"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_toEndOf="@+id/selectDateButton"-->
+        <!--android:layout_alignTop="@+id/selectDateButton"-->
+        <!--android:layout_alignBottom="@+id/selectDateButton" />-->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/addName"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/confirmAdd">
+
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/addDate"
+            android:hint="Date (YYYY-MM-DD)"
+            android:focusable="false"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/addNeck"
+            android:hint="Neck (Circumference, inches)" />
+
+        <!--<EditText-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:inputType="numberDecimal"-->
+            <!--android:ems="10"-->
+            <!--android:id="@+id/addNeck"-->
+            <!--android:hint="Neck" />-->
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/addBust"
+            android:hint="Bust (Circumference, inches)" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/addChest"
+            android:hint="Chest (Circumference, inches)" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/addWaist"
+            android:hint="Waist (Circumference, inches)" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/addHip"
+            android:hint="Hip (Circumference, inches)" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:id="@+id/addInseam"
+            android:hint="Inseam (Length, inches)" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:ems="10"
+            android:id="@+id/addComment"
+            android:hint="Comment" />
+    </LinearLayout>
+</RelativeLayout>
