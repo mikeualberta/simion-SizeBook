@@ -11,7 +11,8 @@ import java.util.regex.Pattern;
  */
 
 
-/* Class design from: http://stackoverflow.com/questions/17423483/how-to-limit-edittext-length-to-
+/* Code for this class design is from user user1545654 on stackOverflow (April 29, 2014)
+http://stackoverflow.com/questions/17423483/how-to-limit-edittext-length-to-
 7-integers-and-2-decimal-places
 */
 

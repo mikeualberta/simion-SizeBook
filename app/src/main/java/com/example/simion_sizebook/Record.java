@@ -6,13 +6,20 @@ import java.io.Serializable;
  * Created by simion on 1/28/17.
  */
 
+/* The Record class. This is the object for entries in the user's SizeBook. The class implements
+ * Serializable to allow a Record object to be saved, as demonstrated by Abram Hindle in his
+ * tutorial video series of the StudentPicker application:
+ * https://www.youtube.com/watch?v=5PPD0ncJU1g&list=PL240uJOh_Vb4PtMZ0f7N8ACYkCLv0673O*/
+
 public class Record implements Serializable {
 
-    /* https://www.mkyong.com/java/how-to-generate-serialversionuid/ says self generated is fine */
+    /* Self-generated serialID. Discovered that self-generating an ID is fine from:
+    * https://www.mkyong.com/java/how-to-generate-serialversionuid/ */
+
     private static final long serialVersionUID = 2L;
 
 
-    private String name;            /* MIGHT NEED TO CHANGE NUMBER VALUES BACK TO FLOATS! */
+    private String name;
     private String neck;
     private String bust;
     private String chest;
@@ -22,6 +29,7 @@ public class Record implements Serializable {
     private String comment;
     private String date;
 
+    /* Constructor for the class */
     public Record(String name, String date, String neck, String bust, String chest, String waist,
                   String hip, String inseam, String comment) {
         this.name = name;
@@ -36,6 +44,7 @@ public class Record implements Serializable {
 
     }
 
+    /* getters and setters for class attributes */
     public String toString(){
         return getName();
     }
@@ -113,6 +122,8 @@ public class Record implements Serializable {
         this.inseam = inseam;
     }
 
+    /* The boolean checkValues method. Determines if attributes entered for the record are
+     * appropriate. Returns a value of true if all values are correct. */
     public boolean checkValues(){
         int flag = 0;
         if (this.getNeck().trim().length() != 0){

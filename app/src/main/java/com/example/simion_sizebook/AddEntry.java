@@ -1,8 +1,6 @@
 package com.example.simion_sizebook;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,19 +13,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
 
-/*  NOTE: The app must assist the user in proper data entry. For example, use appropriate user
-interface controls to enforce particular data types. */
+/*  The AddEntry activity allows the user to add a record to his/her SizeBook */
 
-/* Using as reference for datepicker:
+/* Used this link as a reference for the implementation of my datepicker
 https://developer.android.com/guide/topics/ui/controls/pickers.html
  */
-
 
 
 public class AddEntry extends AppCompatActivity implements View.OnClickListener {
@@ -50,10 +44,12 @@ public class AddEntry extends AppCompatActivity implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /* Setting the view to the add_entry layout view*/
         setContentView(R.layout.add_entry);
+        /* Initializing the RecordListManager*/
         RecordListManager.initManager(this.getApplicationContext());
 
-
+        /* Accessing the editText fields on the screen */
         nameText = (EditText) findViewById(R.id.addName);
         dateText = (EditText) findViewById(R.id.addDate);
         neckText = (EditText) findViewById(R.id.addNeck);
@@ -73,12 +69,14 @@ public class AddEntry extends AppCompatActivity implements View.OnClickListener 
         hipText.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(4,1)});
 
 
-        /* Cite stackOverflow */
+    /* Basis for datepicker came from user Android_coder's post on StackOverflow (Feb 18, 2013) */
+    /* http://stackoverflow.com/questions/14933330/datepicker-how-to-popup-datepicker-when-click-on-edittext */
 
+
+        /* Prevents keyboard from coming up when user clicks on field*/
         dateText.setFocusable(false);
 
-//        MyEditTextDatePicker datePick = new MyEditTextDatePicker(AddEntry.this, dateText);
-
+        /* Will create a pop-up calendar when user clicks on editText field */
         dateText.setOnClickListener(this);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MMM-dd");
 
@@ -93,13 +91,14 @@ public class AddEntry extends AppCompatActivity implements View.OnClickListener 
         });
 
 
-
+        /* Accessing the confirm addButton on the screen*/
         Button confirmAddButton = (Button) findViewById(R.id.confirmAdd);
-
+        /* Listener to see if user clicks on add button */
         confirmAddButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 setResult(RESULT_OK);
 
+                /* Storing the values in the editText fields to variables */
                 String name = nameText.getText().toString();
                 String date = dateText.getText().toString();
                 String neck = neckText.getText().toString();
@@ -110,31 +109,33 @@ public class AddEntry extends AppCompatActivity implements View.OnClickListener 
                 String inseam = inseamText.getText().toString();
                 String comment = commentText.getText().toString();
 
-
+                /* Passing the values to a new record entry */
                 Record record = new Record(name, date, neck, bust, chest, waist, hip, inseam, comment);
-        /* Function activated on click of add record on the add_entry screen layout */
-
+                /* Running the checkValues() method to determine that numeric values conform to
+                * the assignment requirements*/
                 if(record.checkValues() == false){
+                    /* Displaying message to user to inform him of required entry types*/
                     Toast.makeText(AddEntry.this, "Measurements must be positive decimal numbers " +
                             "ending in .0 or .5", Toast.LENGTH_LONG).show();
                     return;
                 }
 
-        /* Method of finding empty string from: http://stackoverflow.com/questions/24391809/android-check-if-edittext-is-empty*/
+                /* Determining if the user entered a name for the record*/
                 if (record.getName().trim().length() != 0){
                     Toast.makeText(AddEntry.this, "Record added!", Toast.LENGTH_SHORT).show();
+                    /* Adding the record to the list through the controller*/
                     RecordListController rc = new RecordListController();
                     rc.addRecord(record);
-            /* Return to the list view screen after adding the entry */
+                     /* Return to the list view screen after adding the entry */
                     Intent intent = new Intent(AddEntry.this, MainActivity.class);
                     startActivity(intent);
                 }
 
                 else{
+                    /* Informing the user that he/she is required to enter a name for his/her entry*/
                     Toast.makeText(AddEntry.this, "Please enter a name for your record", Toast.LENGTH_SHORT).show();
                     return;
-//                Intent intent = new Intent(MainActivity.this, AddEntry.class);
-//                startActivity(intent);
+
             }
         }
 
@@ -144,7 +145,7 @@ public class AddEntry extends AppCompatActivity implements View.OnClickListener 
 
     }
 
-    /* Cite StackOverflow */
+    /* Basis for datepicker came from user Android_coder's post on StackOverflow (Feb 18, 2013) */
     /* http://stackoverflow.com/questions/14933330/datepicker-how-to-popup-datepicker-when-click-on-edittext */
 
     DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {

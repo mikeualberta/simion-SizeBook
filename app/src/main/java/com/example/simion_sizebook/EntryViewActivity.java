@@ -7,12 +7,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+/* The EntryViewActivity allows the user to view an entry in their SizeBook */
+
 public class EntryViewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /* Setting the screen to display the appropriate layout */
         setContentView(R.layout.entry_view);
+        /* Initializing the RecordListManager*/
         RecordListManager.initManager(this.getApplicationContext());
 
 
@@ -30,7 +34,7 @@ public class EntryViewActivity extends AppCompatActivity {
         TextView entryComment = (TextView) findViewById(R.id.entryComment);
 
 
-        /* Need to add other values!!!!!!!! */
+        /* Setting the textfields on the screen to display the record info */
         entryName.setText(currentEntry.getName());
 
         entryDate.setText("Date: " + currentEntry.getDate());
@@ -43,26 +47,28 @@ public class EntryViewActivity extends AppCompatActivity {
 
         entryComment.setText("Comment: " + currentEntry.getComment());
 
-
+        /* Accessing the delete button on the screen */
         Button deleteButton = (Button) findViewById(R.id.deleteButton);
-
+        /* Listener for when the delete button is clicked */
         deleteButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 setResult(RESULT_OK);
+                /* Removing the entry from the recordList through the controller */
                 Record deleteEntry = RecordListController.selectRecord();
                 RecordListController.deleteRecord(deleteEntry);
-                /* Moving to the add entry activity */
+                /* Moving to the MainActivity  */
                 Intent intent = new Intent(EntryViewActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
 
+        /* Accessing the edit button that is displayed on the screen */
         Button editButton = (Button) findViewById(R.id.editButton);
-
+        /* Setting up a listener for the edit record button */
         editButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 setResult(RESULT_OK);
-                /* Moving to the add entry activity */
+                /* Moving to the  EditActivity */
                 Intent intent = new Intent(EntryViewActivity.this, EditActivity.class);
                 startActivity(intent);
             }

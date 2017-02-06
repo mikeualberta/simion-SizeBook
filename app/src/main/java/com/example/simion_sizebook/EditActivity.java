@@ -15,11 +15,12 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+/* The EditActivity allows the user to edit an entry in his/her SizeBook */
 
-/* Still need to implement unit check and date picker for the edit activity. Then include
-* a way to restrict digits after the decimal. Also need
-* to properly display records in the list. Need to implement saving in the app and loading
-* Then video and uml diagram. Add comments and proper citations at the end*/
+/* Used this link as a reference for the implementation of my datepicker
+https://developer.android.com/guide/topics/ui/controls/pickers.html
+ */
+
 public class EditActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText editName;
@@ -39,12 +40,15 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /* Setting the screen to the appropriate layout*/
         setContentView(R.layout.edit_entry);
+        /* Initializing the RecordListManager*/
         RecordListManager.initManager(this.getApplicationContext());
 
-
+        /* Retrieving the record the user wants to edit through the controller */
         editEntry = RecordListController.selectRecord();
 
+        /* Accesing the editText fields on the screen */
         editName = (EditText) findViewById(R.id.editName);
         editDate = (EditText) findViewById(R.id.editDate);
         editNeck = (EditText) findViewById(R.id.editNeck);
@@ -63,7 +67,6 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         editWaist.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(4,1)});
         editHip.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(4,1)});
 
-
         /* Filling the editText boxes with the values for the selected record */
 
         editName.setText(editEntry.getName());
@@ -78,8 +81,14 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
 
         /* Handling date entry stuff */
 
+         /* Basis for datepicker came from user Android_coder's post on StackOverflow (Feb 18, 2013) */
+        /* http://stackoverflow.com/questions/14933330/datepicker-how-to-popup-datepicker-when-click-on-edittext */
+
+        /* Prevents keyboard from coming up when user clicks on field*/
+
         editDate.setFocusable(false);
 
+        /* Will create a pop-up calendar when user clicks on editText field */
 
         editDate.setOnClickListener(this);
 
@@ -95,8 +104,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-
-
+        /* Accessing the confirmEditButton */
 
         Button confirmEditButton = (Button) findViewById(R.id.editCompleteButton);
 
@@ -104,7 +112,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
                 setResult(RESULT_OK);
 
-
+                /* Setting the record's values to be those in the editText fields*/
                 editEntry.setName(editName.getText().toString());
                 editEntry.setDate(editDate.getText().toString());
                 editEntry.setNeck(editNeck.getText().toString());
@@ -115,23 +123,26 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                 editEntry.setInseam(editInseam.getText().toString());
                 editEntry.setComment(editComment.getText().toString());
 
-
+                /* Running the checkValues() method to determine that numeric values conform to
+                * the assignment requirements*/
                 if(editEntry.checkValues() == false){
+                    /* Displaying message to user to inform him of required entry types*/
                     Toast.makeText(EditActivity.this, "Measurements must be positive decimal numbers " +
                             "ending in .0 or .5", Toast.LENGTH_LONG).show();
                     return;
                 }
 
+                /* Determining if the user entered a name for the record*/
                 if (editEntry.getName().trim().length() != 0){
                     Toast.makeText(EditActivity.this, "Edit Complete!", Toast.LENGTH_SHORT).show();
 
-            /* Return to the list view screen after editing the entry */
-
+                    /* Return to the list view screen after editing the entry */
                     Intent doneEditintent = new Intent(EditActivity.this, MainActivity.class);
                     startActivity(doneEditintent);
                 }
 
                 else{
+                    /* Informing the user that he/she is required to enter a name for his/her entry*/
                     Toast.makeText(EditActivity.this, "Please enter a name for your record", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -143,6 +154,9 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
+     /* Basis for datepicker came from user Android_coder's post on StackOverflow (Feb 18, 2013) */
+    /* http://stackoverflow.com/questions/14933330/datepicker-how-to-popup-datepicker-when-click-on-edittext */
 
     DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
